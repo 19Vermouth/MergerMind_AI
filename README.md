@@ -20,6 +20,8 @@ It takes a proposed deal (e.g., "Adobe acquiring Figma") and returns:
 
 ## Architecture
 
+## Architecture Diagram
+
 ```mermaid
 flowchart TB
     subgraph Sources["Data Sources"]
@@ -27,43 +29,43 @@ flowchart TB
         NEWS[NewsAPI]
     end
 
-    subgraph Bronze["Bronze Layer — MinIO (Raw)"]
+    subgraph Bronze["Bronze Layer - MinIO (Raw)"]
         RAW_HTML[Raw HTML / JSON]
     end
 
     subgraph Airflow["Apache Airflow (Orchestration)"]
-        DAG[DAG: ingest → transform → quality]
+        DAG["DAG: ingest → transform → quality"]
     end
 
-    subgraph Silver["Silver Layer — PostgreSQL Staging"]
+    subgraph Silver["Silver Layer - PostgreSQL Staging"]
         STG_DEALS[stg_ma_deals]
         STG_NEWS[stg_news_articles]
     end
 
-    subgraph Gold["Gold Layer — dbt Transformations"]
-        DIM[dim_companies<br/>dim_industries]
-        FACT[fact_ma_deals<br/>fact_news_sentiment]
+    subgraph Gold["Gold Layer - dbt Transformations"]
+        DIM["dim_companies<br/>dim_industries"]
+        FACT["fact_ma_deals<br/>fact_news_sentiment"]
     end
 
     subgraph ML["ML Pipeline"]
         FEATURES[Feature Engineering]
-        TRAIN[ML Training<br/>XGBoost / RF]
+        TRAIN["ML Training<br/>XGBoost / RF"]
         MLFLOW[MLflow Tracking]
     end
 
     subgraph Analysis["Analysis Engine"]
         SENTIMENT[FinBERT Sentiment]
-        MONTE_CARLO[Monte Carlo<br/>50,000 sims]
+        MONTE_CARLO["Monte Carlo<br/>50,000 sims"]
         SCORER[Deal Scorer]
-        LLM[Groq / OpenRouter<br/>Recommendation]
+        LLM["Groq / OpenRouter<br/>Recommendation"]
     end
 
     subgraph API["FastAPI"]
-        ENDPOINTS[POST /analyze-deal<br/>GET /deal/{id}<br/>GET /health]
+        ENDPOINTS["POST /analyze-deal<br/>GET /deal/:id<br/>GET /health"]
     end
 
     subgraph UI["Streamlit Dashboard"]
-        PAGES[Overview | Explorer | Intelligence<br/>Risk | AI Report | Model Performance]
+        PAGES["Overview | Explorer | Intelligence<br/>Risk | AI Report | Model Performance"]
     end
 
     Sources --> Bronze
@@ -73,6 +75,7 @@ flowchart TB
     Gold --> FEATURES
     FEATURES --> TRAIN
     TRAIN --> MLFLOW
+
     NEWS --> SENTIMENT
     SENTIMENT --> SCORER
     MONTE_CARLO --> SCORER
