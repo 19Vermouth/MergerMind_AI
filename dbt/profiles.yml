@@ -1,0 +1,33 @@
+dealsense_postgres:
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('POSTGRES_HOST', 'localhost') }}"
+      port: "{{ env_var('POSTGRES_PORT', '5432') }}"
+      user: "{{ env_var('POSTGRES_USER', 'dealsense_user') }}"
+      password: "{{ env_var('POSTGRES_PASSWORD', 'changeme') }}"
+      dbname: "{{ env_var('POSTGRES_DB', 'dealsense') }}"
+      schema: "{{ target.schema }}"
+      threads: 4
+      keepalives_idle: 0
+      connect_timeout: 10
+
+    prod:
+      type: postgres
+      host: "{{ env_var('POSTGRES_HOST', 'localhost') }}"
+      port: "{{ env_var('POSTGRES_PORT', '5432') }}"
+      user: "{{ env_var('POSTGRES_USER', 'dealsense_user') }}"
+      password: "{{ env_var('POSTGRES_PASSWORD', 'changeme') }}"
+      dbname: "{{ env_var('POSTGRES_DB', 'dealsense') }}"
+      schema: "{{ target.schema }}"
+      threads: 8
+      keepalives_idle: 0
+      connect_timeout: 10
+
+  targets:
+    dev:
+      outputs:
+        - dev
+    prod:
+      outputs:
+        - prod

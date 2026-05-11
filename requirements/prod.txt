@@ -1,0 +1,5 @@
+# Production dependencies
+-r base.txt
+
+# Server
+gunicorn>=21.2.0

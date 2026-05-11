@@ -1,0 +1,36 @@
+# DealSense AI — FastAPI Service
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY requirements/base.txt /app/requirements/base.txt
+COPY requirements/prod.txt /app/requirements/prod.txt
+RUN pip install --no-cache-dir -r /app/requirements/base.txt -r /app/requirements/prod.txt
+
+# Copy application code
+COPY src/ /app/src/
+COPY src/api/ /app/src/api/
+COPY src/models/ /app/src/models/
+COPY src/simulation/ /app/src/simulation/
+COPY src/scoring/ /app/src/scoring/
+COPY src/llm/ /app/src/llm/
+COPY src/ingestion/ /app/src/ingestion/
+COPY src/features/ /app/src/features/
+
+# Create tests directory for coverage
+RUN mkdir -p /app/tests
+
+EXPOSE 8000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD python -c "import httpx; httpx.get('http://localhost:8000/health')" || exit 1
+
+CMD ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"]

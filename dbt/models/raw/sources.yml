@@ -1,0 +1,49 @@
+sources:
+  - name: dealsense
+    schema: raw
+    tables:
+      - name: ma_deals
+        description: Raw M&A deal data scraped from public sources
+        columns:
+          - name: id
+            data_type: integer
+            tests:
+              - unique
+              - not_null
+          - name: deal_id
+            data_type: uuid
+          - name: acquirer
+            data_type: varchar
+            tests:
+              - not_null
+          - name: target
+            data_type: varchar
+            tests:
+              - not_null
+          - name: deal_value_usd
+            data_type: bigint
+            tests:
+              - not_null
+              - dbt_utils.accepted_range:
+                  min_value: 0
+          - name: industry
+            data_type: varchar
+          - name: announcement_date
+            data_type: date
+          - name: deal_success
+            data_type: boolean
+
+      - name: news_articles
+        description: Raw news articles fetched via NewsAPI
+        columns:
+          - name: id
+            data_type: integer
+            tests:
+              - unique
+              - not_null
+          - name: title
+            data_type: varchar
+            tests:
+              - not_null
+          - name: sentiment_score
+            data_type: decimal

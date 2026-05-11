@@ -1,0 +1,11 @@
+# DealSense AI — Apache Airflow
+FROM apache/airflow:2.9.1-python3.12
+
+WORKDIR /opt/airflow
+
+COPY requirements/base.txt /tmp/base.txt
+RUN pip install --no-cache-dir -r /tmp/base.txt
+
+COPY dags/ /opt/airflow/dags/
+COPY scraping/ /opt/airflow/scraping/
+COPY src/ /opt/airflow/src/

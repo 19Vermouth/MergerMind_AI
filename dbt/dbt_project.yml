@@ -1,0 +1,20 @@
+name: dealsense_dbt
+version: 1.0.0
+config-version: 2
+
+vars:
+  schema_name: dealsense
+  target_db: postgres
+
+models:
+  dealsense_dbt:
+    materialized: table
+    staging:
+      +schema: staging
+    mart:
+      +schema: mart
+    ml:
+      +schema: ml
+
+on-run-start:
+  - "{{ log('DealSense dbt transformation starting', info=True) }}"

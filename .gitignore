@@ -1,0 +1,172 @@
+# =============================================================================
+# Environment and secrets
+# =============================================================================
+.env
+.env.local
+.env.*.local
+*.env
+secrets.json
+credentials.json
+*.pem
+*.key
+
+# =============================================================================
+# Python
+# =============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# PyInstaller
+*.manifest
+*.spec
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# poetry
+poetry.lock
+
+# =============================================================================
+# Testing
+# =============================================================================
+.pytest_cache/
+.coverage
+*.cover
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.pycov
+tests/.coverage
+
+# =============================================================================
+# Docker
+# =============================================================================
+.docker/
+
+# Named volumes (do not commit but whitelist pattern)
+pgdata/
+minio-data/
+mlflow-artifacts/
+
+# =============================================================================
+# IDEs
+# =============================================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.sublime-workspace
+*.sublime-project
+.emacs.desktop
+.emacs.desktop.lock
+.trash/
+.trash.*
+
+# =============================================================================
+# Data files (local overrides)
+# =============================================================================
+data/raw/
+data/processed/
+data/models/
+data/mlflow/
+*.csv
+*.parquet
+*.feather
+*.db
+*.sqlite
+*.sqlite3
+
+# Scrapy output
+scraping/output/
+scraping/*.json
+
+# dbt
+dbt/logs/
+dbt/target/
+dbt/.user.yml
+
+# =============================================================================
+# ML / experiment tracking
+# =============================================================================
+mlruns/
+mlartifacts/
+experiments/
+models/*.pkl
+models/*.joblib
+*.h5
+*.pb
+
+# =============================================================================
+# Logs
+# =============================================================================
+*.log
+logs/
+airflow_logs/
+*.trace
+
+# =============================================================================
+# Pre-commit
+# =============================================================================
+.ruff_cache/
+.black/
+.isort.cfg
+
+# =============================================================================
+# CI/CD artifacts
+# =============================================================================
+.github/workflows/*.log
+
+# =============================================================================
+# Temporary files
+# =============================================================================
+tmp/
+temp/
+*.tmp
+.cache/
+.tmp/
